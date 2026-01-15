@@ -1,59 +1,52 @@
-# NATIONALIDSYSTEM
+National ID System for Liberia
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+    
+Overview
 
-## Development server
 
-To start a local development server, run:
+     
+Neogen Technologies Liberia is spearheading the development of a modern National Identification System designed to streamline identity management for citizens, residents, and foreign nationals in Liberia. This initiative will provide a secure, centralized, and digital platform for issuing national ID cards, ensuring that every individual is properly registered and authenticated.
+The system will allow:
+- Citizens in Liberia to apply online for their ID cards.
+- Liberian citizens abroad to register and obtain their national ID.
+- Foreign nationals residing in Liberia to apply for the appropriate class of ID.
+By addressing challenges of card availability, processing delays, and identity verification, the project will strengthen national security, improve service delivery, and foster economic growth.
 
-```bash
-ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+🎯 Objectives         
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
+- Ensure accurate tracking of citizens and foreign nationals.
+- Reduce processing time and improve accessibility through online applications.
+- Generate revenue for the government and create employment opportunities for Liberian youth.
+- Provide a single, authenticated ID card that can be used across government agencies, banks, telecom providers, and businesses.
+- Support investigations and law enforcement with reliable identity verification.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+⚙️ Key Features     
 
-```bash
-ng generate --help
-```
 
-## Building
 
-To build the project run:
+- Online Application Portal: Accessible to citizens in Liberia, Liberians abroad, and foreign nationals.
+- Card Classification System: Issues the correct type of ID card based on eligibility (citizen, resident, foreign national).
+- Biometric Authentication: Fingerprint, facial recognition, and other biometric data for secure identification.
+- Centralized Database: Maintains accurate records of all registered individuals.
+- Integration with Services: Enables banks, GSM operators, and government agencies to verify clients using a single valid card.
+- Revenue Generation Module: Supports payment processing for applications, renewals, and replacements.
+- Job Creation: Employs local staff for enrollment centers, customer support, and system management.
+- Fraud Prevention: Advanced security protocols to prevent duplication, forgery, or misuse of ID cards.
+- Analytics & Reporting: Provides insights for government planning, census, and policy-making.
 
-```bash
-ng build
-```
+🌍 Impact       
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- Citizenship Assurance: Every Liberian will have a recognized, valid national identity.
+- Economic Growth: New jobs and revenue streams will be created.
+- Improved Governance: Agencies can deliver services more efficiently with verified identities.
+- Global Accessibility: Diaspora citizens can easily apply and remain connected to Liberia.
+- Enhanced Security: Reliable identity verification aids in crime prevention and national investigations.
 
-```bash
-ng test
-```
 
-## Running end-to-end tests
+Power By: Neogen Technologies Liberia
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
