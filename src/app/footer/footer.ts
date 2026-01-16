@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-welcome-dashboard',
+  selector: 'app-footer',
   imports: [CommonModule,RouterModule],
-  templateUrl: './welcome-dashboard.html',
-  styleUrl: './welcome-dashboard.css',
+  templateUrl: './footer.html',
+  styleUrl: './footer.css',
 })
-export class WelcomeDashboard {
+export class Footer {
 
 }
