@@ -9,5 +9,14 @@ import { RouterModule } from '@angular/router';
   styleUrl: './auth-login.css',
 })
 export class AuthLogin {
+onSubmit() {
+throw new Error('Method not implemented.');
+}
+onGoogleLogin() {
+throw new Error('Method not implemented.');
+}
+onLogin() {
+throw new Error('Method not implemented.');
+}
 
 }

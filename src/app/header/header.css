@@ -1,0 +1,138 @@
+.container-fluid {
+  height: 130px;
+  width: 100%;
+  background-color: skyblue;
+  display: flex;
+  align-items: center;
+}
+.header-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 130px;
+  width: 100%;
+  padding: 0;
+  background-image: url('/IMAGES/headerImage.jpeg');
+  background-size: cover;
+  background-position: center 50%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.header-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(38, 38, 231, 0.611);
+  z-index: 1;
+}
+.logo,
+.header-text {
+  position: relative;
+  z-index: 2;
+}
+.logo-container {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  width: 70%;
+  max-width: 550px;
+  background-color: rgba(0, 0, 128, 0.87);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  margin-left: 0;
+}
+@media (min-width: 768px) {
+  .logo-container {
+    clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
+  }
+}
+.logo {
+  width: 56px;
+  height: auto;
+  flex-shrink: 0;
+}
+.header-text {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin: 0;
+  line-height: 1.1;
+  font-size: clamp(1.2rem, 4vw, 2.5rem);
+  color: #c54545;
+}
+@media (min-width: 768px) {
+  .logo {
+    width: 110px;
+  }
+  .header-text {
+    font-size: 2.5rem;
+  }
+} 
+@media (min-width: 1024px) {
+  .logo-container {
+    padding-left: 16px;
+  }
+  .logo {
+    width: 190px;
+    height: 150px;
+  }
+}
+.header-text .blue {
+  color: #00aaff;
+}
+.header-text .black {
+  color: #ffffff;
+}
+@media (max-width: 480px) {
+  .logo-container {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .logo {
+    width: 48px;
+  }
+}
+.hamburger-btn {
+  position: absolute;
+  left: 312px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1100;
+  padding: 6px 10px;
+  font-size: 1.2rem;
+}
+.hamburger-btn:hover {
+  background-color: #0b5ed7;
+}
+.hamburger-btn {
+  min-width: 44px;
+  min-height: 44px;
+}
+.hamburger-btn {
+  display: none;
+}
+@media (max-width: 767px) {
+  .hamburger-btn {
+    display: block;
+  }
+}
+@media (max-width: 576px) {
+  .mobile-auth-actions .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+    box-shadow: none;
+  }
+  .mobile-auth-actions i {
+    font-size: 14px;
+  }
+}
+app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,129 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.auth-wrapper {
+  position: relative;
+  min-height: 100vh;
+  background: url('https://i.redd.it/83gxvd96r5sy.png')
+    center/cover no-repeat;
+    width: 100%;
+    overflow: hidden; /* prevents vertical scroll */
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 128, 0.718);
+  width: 100%;
+}
+
+.login-card {
+  position: relative;
+  background: #ffffffa7;
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 15px 30px rgba(135, 207, 235, 0.696);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.login-title {
+  font-weight: 700;
+  color: navy;
+}
+
+.login-icon {
+  font-size: 60px;
+  color: red;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+.form-label i {
+  margin-right: 10px;
+  color: red;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: navy;
+  font-weight: bold;
+}
+
+
+.btn-primary {
+  background: #1e3a8a;
+  border: none;
+  border-radius: 10px;
+  padding-top: 10px;
+}
+
+.btn-primary:hover {
+  background: #1e40af;
+}
+
+.google-btn {
+  border-radius: 10px;
+}
+
+.divider {
+  position: relative;
+  margin: 6px 0;
+}
+
+.divider span {
+  padding: 0 10px;
+  color: #6b7280;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: #e5e7eb;
+  top: 50%;
+  left: 0;
+  z-index: -1;
+}
+
+.register-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: #1e3a8a;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.security-note {
+  font-size: 13px;
+  color: #1e3a8a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.9;
+}
+
+.security-note i {
+  font-size: 16px;
+}
+

@@ -1,0 +1,16 @@
+<div class="page-wrapper">
+  <app-header></app-header>
+<div class="auth-btn">
+    <a routerLink="login" class="btn btn-danger me-2"><i class="bi bi-box-arrow-in-right"></i> Login Here</a>
+    <a routerLink="signup" class="btn btn-primary me-2">Dont have an account ? Register</a>
+</div>
+  <div class="content-wrapper">
+    <app-side-nav></app-side-nav>
+
+    <main class="main-container">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <app-footer></app-footer>
+</div>

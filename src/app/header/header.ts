@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -9,5 +9,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
+  isSideNavOpen = false;
 
+  @HostListener('window:resize')
+  onResize() {
+    if (window.innerWidth >= 768) {
+      this.isSideNavOpen = false;
+    }
+  }
 }
+

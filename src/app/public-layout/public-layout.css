@@ -1,0 +1,66 @@
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* not min-height */
+  overflow: hidden;
+}
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+app-side-nav {
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto; /* ONLY if sidenav content exceeds */
+  flex-shrink: 0;
+}
+.main-container {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+@media (max-width: 576px) {
+  .auth-btn {
+    top: 90px;
+    right: 8px;
+  }
+  @media (min-width: 577px) and (max-width: 991px) {
+    .auth-btn .btn {
+      padding: 8px 14px;
+      font-size: 14px;
+    }
+  }
+  .auth-btn .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    box-shadow: 2px 2px 8px rgba(31, 31, 214, 0.6);
+  }
+}
+@media (max-width: 576px) {
+  .auth-btn {
+    display: none;
+  }
+}
+.mobile-auth-actions {
+  display: none;
+}
+@media (max-width: 576px) {
+  .mobile-auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+.auth-btn {
+  position: absolute;
+  top: 140px;
+  right: 12px;
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+}
+.btn {
+  box-shadow: 4px 4px 13px rgb(31, 31, 214);
+  color: rgb(215, 244, 255);
+}

@@ -9,5 +9,8 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './auth-signup.css',
 })
 export class AuthSignup {
+onSubmit() {
+throw new Error('Method not implemented.');
+}
 
 }

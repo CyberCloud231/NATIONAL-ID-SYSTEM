@@ -9,5 +9,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './side-nav.css',
 })
 export class SideNav {
-
+isSideNavOpen = false;
 }

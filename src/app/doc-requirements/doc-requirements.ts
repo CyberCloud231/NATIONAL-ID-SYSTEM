@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-welcome-dashboard',
+  selector: 'app-doc-requirements',
   imports: [CommonModule,RouterModule],
-  templateUrl: './welcome-dashboard.html',
-  styleUrl: './welcome-dashboard.css',
+  templateUrl: './doc-requirements.html',
+  styleUrl: './doc-requirements.css',
 })
-export class WelcomeDashboard {
+export class DocRequirements {
 
 }
