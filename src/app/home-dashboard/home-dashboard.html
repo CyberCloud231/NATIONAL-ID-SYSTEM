@@ -1,1 +1,47 @@
-<p>home-dashboard works!</p>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="user-menu">
+    <button class="user-btn" (click)="toggleMenu()">
+      {{ user.name }}
+      <span class="arrow">▾</span>
+    </button>
+
+    <div class="dropdown" *ngIf="menuOpen">
+      <button (click)="goToProfile()">Profile</button>
+      <button class="logout" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+
+  <!-- Dashboard -->
+  <section class="dashboard">
+    <h1>Welcome Back, {{ user.name }}!</h1>
+    <p class="tagline">One Nation, One Identity Seamlessly Connected</p>
+
+    <div class="info">
+      <span>Last Login : {{ user.lastLogin | date:'medium' }}</span>
+      <span>NIRAL ID : {{ user.id }}</span>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <div class="card">Edit Profile</div>
+    <div class="card" routerLink='/applyForm'>Fresh Application</div>
+    <div class="card" routerLink="">Edit / Complete Application</div>
+    <div class="card">Print Application Form</div>
+    <div class="card">Application Status</div>
+    <div class="card">Appointment Scheduling</div>
+    <div class="card">Reapply for Missing Card</div>
+    <div class="card">Change of Information</div>
+    <div class="card">Apply for Card Renewal</div>
+    <div class="card">Download e-Card</div>
+    <div class="card">Feedback</div>
+  </section>
+
+</div>
+

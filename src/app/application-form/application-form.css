@@ -1,0 +1,170 @@
+
+
+/* 1) REMOVE STEPPER SCROLLING ON DESKTOP COMPLETELY */
+@media (min-width: 992px) {
+  .mat-horizontal-stepper-header-container {
+    overflow-x: visible !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* 2) REMOVE MARGIN UNDER EACH STEPPER BUTTON GROUP */
+.mat-horizontal-stepper-content > div:last-child {
+  position: static !important;     /* remove sticky */
+  padding: 0 !important;           /* remove padding */
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  background: transparent !important;
+  border-top: none !important;
+}
+
+/* 3) REMOVE UNNECESSARY TOP MARGINS IN STEP CONTENT */
+:host ::ng-deep .mat-horizontal-content-container {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* 4) REDUCE INPUT FIELD HEIGHT + WIDTH */
+mat-form-field {
+  width: 100%;
+  --mat-form-field-container-height: 42px !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field-flex {
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 10px !important;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper {
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep input.mat-input-element,
+:host ::ng-deep .mat-mdc-input-element {
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Reduce label spacing and compact appearance */
+:host ::ng-deep .mat-mdc-form-field-wrapper {
+  padding-bottom: 4px !important;
+  margin-top: -2px !important;
+}
+
+/* =====================================
+   EXISTING YOUR ORIGINAL STYLES...
+   (All your glassmorphism, backgrounds, etc.)
+   — kept as-is, then patched where needed.
+===================================== */
+
+:host {
+  --clr-lightred: #ff6b6b;
+  --clr-skyblue:  #58b6ff;
+  --clr-navy:     #0b2347;
+
+  --overlay-dark: rgba(11, 35, 71, 0.55);
+  --overlay-light: rgba(11, 35, 71, 0.20);
+
+  --gradient-main: linear-gradient(
+    135deg,
+    var(--clr-lightred),
+    var(--clr-skyblue) 50%,
+    var(--clr-navy)
+  );
+}
+
+/* Background */
+main.container-fluid {
+  position: relative;
+  background: url("/IMAGES/liberia-national-id.png") center / cover no-repeat fixed;
+  padding: 1rem;
+}
+
+main.container-fluid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--overlay-dark), var(--overlay-light));
+  z-index: 0;
+}
+
+main.container-fluid > .container-xl {
+  position: relative;
+  z-index: 2;
+}
+
+/* Card (Glassmorphism) */
+section.card {
+  border-radius: 18px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.75)) padding-box,
+    var(--gradient-main) border-box;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+  padding: 0 !important;
+
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+@supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
+  section.card {
+    background:
+      linear-gradient(rgba(255,255,255,0.73), rgba(255,255,255,0.63)) padding-box,
+      var(--gradient-main) border-box;
+    backdrop-filter: blur(12px);
+  }
+}
+
+.card-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-horizontal-stepper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0 !important; /* REMOVE EXTRA GAP */
+}
+
+/* Stepper Header */
+.mat-horizontal-stepper-header-container {
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.mat-horizontal-stepper-header-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Step animations */
+:host ::ng-deep .mat-horizontal-stepper-content {
+  flex: 1;
+  overflow: visible !important;
+  padding: 10px !important;
+  animation: stepFadeSlide 0.35s ease;
+}
+
+@keyframes stepFadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Buttons */
+button[mat-raised-button],
+button[color="primary"] {
+  background: var(--gradient-main) !important;
+  color: #fff !important;
+  font-weight: 600;
+  padding: 0.55rem 1.4rem;
+  border-radius: 8px;
+  margin: 0 !important;         /* remove bottom margin */
+}
+

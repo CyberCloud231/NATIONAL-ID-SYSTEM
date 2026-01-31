@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 import { AuthLogin } from './auth-login/auth-login';
 import { AuthSignup } from './auth-signup/auth-signup';
@@ -16,38 +15,36 @@ import { SupportCenter } from './support-center/support-center';
 import { PaymentProcess } from './payment-process/payment-process';
 import { Feedback } from './feedback/feedback';
 import { Anouncements } from './anouncements/anouncements';
+import { ApplicationForm } from './application-form/application-form';
 
 export const routes: Routes = [
-
-  
   {
     path: '',
     component: PublicLayout,
     children: [
       { path: 'about', component: About },
       { path: 'how-to-apply', component: HowToApply },
-      { path: 'faq', component:FAQs },
+      { path: 'faq', component: FAQs },
       { path: 'card-classes', component: CardClasses },
-      {path: "important-instructions", component: ImportantInstructions},
-      {path: "doc-requirements", component: DocRequirements},
-      {path: "technical-info", component: TechnicalInfo},
-      {path: 'support-center', component:SupportCenter},
-      {path: 'payment-process', component:PaymentProcess},
-      {path: 'feedback', component:Feedback},
-      {path:'announcements',component:Anouncements}
-    ]
+      { path: 'important-instructions', component: ImportantInstructions },
+      { path: 'doc-requirements', component: DocRequirements },
+      { path: 'technical-info', component: TechnicalInfo },
+      { path: 'support-center', component: SupportCenter },
+      { path: 'payment-process', component: PaymentProcess },
+      { path: 'feedback', component: Feedback },
+      { path: 'announcements', component: Anouncements },
+    ],
   },
 
+  { path: 'login', component: AuthLogin },
+  { path: 'signup', component: AuthSignup },
 
   {
     path: '',
     component: SystemLayout,
     children: [
-      { path: 'login', component: AuthLogin },
-      { path: 'signup', component: AuthSignup },
-      { path: 'dashboard', component: HomeDashboard }
-    ]
-  }
-
+      { path: 'dashboard',component: HomeDashboard,data: { showHeader: true },},
+      { path: 'applyForm',component: ApplicationForm,data: { showHeader: true },},
+    ],
+  },
 ];
-
