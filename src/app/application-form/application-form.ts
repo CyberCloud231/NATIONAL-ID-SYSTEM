@@ -20,6 +20,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+
+/* ✅ DIALOG COMPONENTS */
+import { DeclarationDialogComponent } from '../Delclaration-Dialog/DeclarationDialog.component';
+import { SubmissionSuccessDialog } from '../Submission-Dialog/SubmissionDialog.component';
+
+
 
 /** Types */
 type ApplicationType = 'L1' | 'L2' | 'Y1' | 'F1'; // ✅ Added F1
@@ -109,7 +116,8 @@ type ApplicationFormModel = {
     MatButtonModule,
     MatIconModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatDialogModule,
   ],
   templateUrl: './application-form.html',
   styleUrls: ['./application-form.css'],
@@ -130,6 +138,12 @@ get nonEcowasCountries(): string[] {
   const ecowas = new Set(this.ecowasCountries);
   return this.countries.filter(c => !ecowas.has(c));
 }
+tempApplicationId = this.generateTempId();
+finalApplicationId: string | null = null;
+
+private generateTempId(): string {
+  return 'TMP-' + Date.now().toString(36).toUpperCase();
+}
 
 
   today = new Date();
@@ -146,10 +160,26 @@ get nonEcowasCountries(): string[] {
 
   public trackByCountry: TrackByFunction<string> = (_: number, c: string) => c;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private dialog: MatDialog) {
     this.buildForm();
+    localStorage.setItem(
+  `application:${this.tempApplicationId}`,
+  JSON.stringify({ form: this.form.value })
+);
+
     this.handleApplicationTypeChanges();
   }
+
+loadApplication(tempId: string) {
+  const data = localStorage.getItem(`application:${tempId}`);
+  if (!data) return;
+
+  const parsed = JSON.parse(data);
+  this.form.patchValue(parsed.form);
+  this.appType.set(parsed.appType);
+  this.tempApplicationId = tempId;
+}
+
 
   /** Accessors */
   get application() { return this.form.controls.application; }
@@ -396,16 +426,54 @@ get nonEcowasCountries(): string[] {
     this.documents.controls[controlName].updateValueAndValidity();
   }
 
-  submit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-    console.log('FINAL PAYLOAD', this.form.value);
+ submit() {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+const dialogRef = this.dialog.open(DeclarationDialogComponent);
+
+
+  dialogRef.afterClosed().subscribe(() => {
+    this.finalApplicationId = 'APP-' + Date.now().toString(36).toUpperCase();
+
+    this.dialog.open(SubmissionSuccessDialog, {
+      data: { applicationId: this.finalApplicationId }
+    });
+
+    // Cleanup temp save
+    localStorage.removeItem(`application:${this.tempApplicationId}`);
+  });
+}
+
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  saveAndExit() {
+  localStorage.setItem(
+    `application:${this.tempApplicationId}`,
+    JSON.stringify({
+      tempId: this.tempApplicationId,
+      form: this.form.value,
+      appType: this.appType()
+    })
+  );
+
+  alert(`Application saved.\nYour Temporary ID is:\n${this.tempApplicationId}`);
+}
+exitApplication() {
+  const confirmExit = confirm(
+    'Are you sure you want to exit?\nUnsaved changes will be lost.'
+  );
+
+  if (confirmExit) {
+    // Navigate away or reset
+    this.form.reset();
+  }
+}
+
+
 }
