@@ -3,27 +3,22 @@
     <div class="container-xl">
       <section class="card shadow-sm border-0">
         <div class="card-body p-3 p-md-4">
-
           <div class="d-flex justify-content-between align-items-center mb-3">
-  <div class="fw-semibold text-primary">
-    Temporary Application ID:
-    <span class="text-dark">{{ tempApplicationId }}</span>
-  </div>
+            <div class="fw-semibold text-primary">
+              Temporary Application ID:
+              <span class="text-dark">{{ tempApplicationId }}</span>
+            </div>
 
-  <div class="d-flex gap-2">
-    <button mat-stroked-button color="primary" (click)="saveAndExit()">
-      Save & Continue Later
-    </button>
+            <div class="d-flex gap-2">
+              <button mat-stroked-button color="primary" (click)="saveAndExit()">
+                Save & Continue Later
+              </button>
 
-    <button mat-stroked-button color="warn" (click)="exitApplication()">
-      Exit
-    </button>
-  </div>
-</div>
-
+              <button mat-stroked-button color="warn" (click)="exitApplication()">Exit</button>
+            </div>
+          </div>
 
           <mat-horizontal-stepper linear labelPosition="bottom">
-
             <!-- STEP 1: APPLICATION TYPE -->
             <mat-step [stepControl]="application">
               <ng-template matStepLabel>Application Type</ng-template>
@@ -93,9 +88,12 @@
                 <div class="col-12 col-md-6">
                   <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="dobPicker"
-                           formControlName="dateOfBirth"
-                           [max]="today" />
+                    <input
+                      matInput
+                      [matDatepicker]="dobPicker"
+                      formControlName="dateOfBirth"
+                      [max]="today"
+                    />
                     <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
                     <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
 
@@ -170,6 +168,62 @@
                 </div>
               </div>
 
+              <p class="nirl-info-text">Please choose your County and District. Based on your selection, the system will show the nearest NIRL Enrollment Center serving your location.</p>
+              <!-- ADD *ngIf — optional; remove it if you prefer showing disabled fields for L2 -->
+              <div class="row g-3" formGroupName="countyOfApplication" *ngIf="!isL2()">
+                <!-- County -->
+                <div class="col-12 col-md-4">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>County</mat-label>
+                    <mat-select formControlName="county">
+                      <mat-option *ngFor="let c of counties; trackBy: trackByCounty" [value]="c.id">
+                        {{ c.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="countyCtrl.touched && countyCtrl.hasError('required')">
+                      County is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- District -->
+                <div class="col-12 col-md-4">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>District</mat-label>
+                    <mat-select formControlName="district">
+                      <mat-option
+                        *ngFor="let d of filteredDistricts$ | async; trackBy: trackByDistrict"
+                        [value]="d.id"
+                      >
+                        {{ d.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="districtCtrl.touched && districtCtrl.hasError('required')">
+                      District is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Application Center -->
+                <div class="col-12 col-md-4">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Application Center</mat-label>
+                    <mat-select formControlName="center">
+                      <mat-option
+                        *ngFor="let cn of filteredCenters$ | async; trackBy: trackByCenter"
+                        [value]="cn.id"
+                      >
+                        {{ cn.name }} — {{ cn.address }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint>Each center is shown with its unique address.</mat-hint>
+                    <mat-error *ngIf="centerCtrl.touched && centerCtrl.hasError('required')">
+                      Application center is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
               <div class="d-flex justify-content-between mt-3">
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button matStepperNext color="primary">Next</button>
@@ -194,9 +248,12 @@
                 <div class="col-12 col-md-6">
                   <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Issue Date</mat-label>
-                    <input matInput [matDatepicker]="issuePicker"
-                           formControlName="issueDate"
-                           [max]="today" />
+                    <input
+                      matInput
+                      [matDatepicker]="issuePicker"
+                      formControlName="issueDate"
+                      [max]="today"
+                    />
                     <mat-datepicker-toggle matSuffix [for]="issuePicker"></mat-datepicker-toggle>
                     <mat-datepicker #issuePicker startView="multi-year"></mat-datepicker>
 
@@ -209,9 +266,12 @@
                 <div class="col-12 col-md-6">
                   <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Expiry Date</mat-label>
-                    <input matInput [matDatepicker]="expiryPicker"
-                           formControlName="expiryDate"
-                           [min]="passportInfo.controls.issueDate.value || null" />
+                    <input
+                      matInput
+                      [matDatepicker]="expiryPicker"
+                      formControlName="expiryDate"
+                      [min]="passportInfo.controls.issueDate.value || null"
+                    />
                     <mat-datepicker-toggle matSuffix [for]="expiryPicker"></mat-datepicker-toggle>
                     <mat-datepicker #expiryPicker startView="multi-year"></mat-datepicker>
 
@@ -295,64 +355,77 @@
                 <div class="col-12 col-md-6">
                   <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Issue Date</mat-label>
-                    <input matInput [matDatepicker]="fIssuePicker"
-                           formControlName="passportIssueDate"
-                           [max]="today" />
+                    <input
+                      matInput
+                      [matDatepicker]="fIssuePicker"
+                      formControlName="passportIssueDate"
+                      [max]="today"
+                    />
                     <mat-datepicker-toggle matSuffix [for]="fIssuePicker"></mat-datepicker-toggle>
                     <mat-datepicker #fIssuePicker startView="multi-year"></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <!-- Nationality Category -->
-<div class="col-12 col-md-6">
-  <mat-form-field class="w-100" appearance="outline">
-    <mat-label>Nationality Category</mat-label>
+                <div class="col-12 col-md-6">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Nationality Category</mat-label>
 
-    <mat-select formControlName="nationalityCategory">
-      <mat-option value="ECOWAS">ECOWAS (West African Community)</mat-option>
-      <mat-option value="NON_ECOWAS">Non-ECOWAS</mat-option>
-    </mat-select>
+                    <mat-select formControlName="nationalityCategory">
+                      <mat-option value="ECOWAS">ECOWAS (West African Community)</mat-option>
+                      <mat-option value="NON_ECOWAS">Non-ECOWAS</mat-option>
+                    </mat-select>
 
-    <mat-error *ngIf="foreignInfo.controls.nationalityCategory.hasError('required')">
-      Nationality category is required
-    </mat-error>
-  </mat-form-field>
-</div>
+                    <mat-error
+                      *ngIf="foreignInfo.controls.nationalityCategory.hasError('required')"
+                    >
+                      Nationality category is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
 
-<!-- Nationality -->
-<div class="col-12 col-md-6">
-  <mat-form-field class="w-100" appearance="outline">
-    <mat-label>Nationality</mat-label>
+                <!-- Nationality -->
+                <div class="col-12 col-md-6">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Nationality</mat-label>
 
-    <mat-select formControlName="nationality"
-                [disabled]="!foreignInfo.controls.nationalityCategory.value">
-      <!-- ECOWAS -->
-      <ng-container *ngIf="foreignInfo.controls.nationalityCategory.value === 'ECOWAS'">
-        <mat-option *ngFor="let c of ecowasCountries" [value]="c">
-          {{ c }}
-        </mat-option>
-      </ng-container>
+                    <mat-select
+                      formControlName="nationality"
+                      [disabled]="!foreignInfo.controls.nationalityCategory.value"
+                    >
+                      <!-- ECOWAS -->
+                      <ng-container
+                        *ngIf="foreignInfo.controls.nationalityCategory.value === 'ECOWAS'"
+                      >
+                        <mat-option *ngFor="let c of ecowasCountries" [value]="c">
+                          {{ c }}
+                        </mat-option>
+                      </ng-container>
 
-      <!-- NON-ECOWAS -->
-      <ng-container *ngIf="foreignInfo.controls.nationalityCategory.value === 'NON_ECOWAS'">
-        <mat-option *ngFor="let c of nonEcowasCountries" [value]="c">
-          {{ c }}
-        </mat-option>
-      </ng-container>
-    </mat-select>
+                      <!-- NON-ECOWAS -->
+                      <ng-container
+                        *ngIf="foreignInfo.controls.nationalityCategory.value === 'NON_ECOWAS'"
+                      >
+                        <mat-option *ngFor="let c of nonEcowasCountries" [value]="c">
+                          {{ c }}
+                        </mat-option>
+                      </ng-container>
+                    </mat-select>
 
-    <mat-error *ngIf="foreignInfo.controls.nationality.hasError('required')">
-      Nationality is required
-    </mat-error>
-  </mat-form-field>
-</div>
-
+                    <mat-error *ngIf="foreignInfo.controls.nationality.hasError('required')">
+                      Nationality is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
 
                 <div class="col-12 col-md-6">
                   <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Expiry Date</mat-label>
-                    <input matInput [matDatepicker]="fExpiryPicker"
-                           formControlName="passportExpiryDate"
-                           [min]="foreignInfo.controls.passportIssueDate.value || null" />
+                    <input
+                      matInput
+                      [matDatepicker]="fExpiryPicker"
+                      formControlName="passportExpiryDate"
+                      [min]="foreignInfo.controls.passportIssueDate.value || null"
+                    />
                     <mat-datepicker-toggle matSuffix [for]="fExpiryPicker"></mat-datepicker-toggle>
                     <mat-datepicker #fExpiryPicker startView="multi-year"></mat-datepicker>
                   </mat-form-field>
@@ -369,7 +442,9 @@
                   <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Residence/Work Permit Number</mat-label>
                     <input matInput formControlName="residencePermitNumber" />
-                    <mat-error *ngIf="foreignInfo.controls.residencePermitNumber.hasError('required')">
+                    <mat-error
+                      *ngIf="foreignInfo.controls.residencePermitNumber.hasError('required')"
+                    >
                       Permit number is required
                     </mat-error>
                   </mat-form-field>
@@ -382,17 +457,19 @@
                   </mat-form-field>
                 </div>
 
-                <div class="col-12 col-md-6 ">
+                <div class="col-12 col-md-6">
                   <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Current Address in Liberia</mat-label>
                     <input matInput formControlName="currentAddressLiberia" />
-                    <mat-error *ngIf="foreignInfo.controls.currentAddressLiberia.hasError('required')">
+                    <mat-error
+                      *ngIf="foreignInfo.controls.currentAddressLiberia.hasError('required')"
+                    >
                       Current address in Liberia is required
                     </mat-error>
                   </mat-form-field>
                 </div>
 
-                <div class="col-12  col-md-6">
+                <div class="col-12 col-md-6">
                   <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Permanent Address (Home Country)</mat-label>
                     <input matInput formControlName="permanentAddressHome" />
@@ -411,18 +488,25 @@
               <ng-template matStepLabel>Documents</ng-template>
 
               <div class="row g-4" formGroupName="documents">
-
                 <!-- Photo -->
                 <div class="col-12">
                   <label class="form-label fw-semibold">
                     PassportSize Photo <span class="text-danger">*</span>
                   </label>
-                  <input class="form-control" type="file"
-                         accept="image/jpeg,image/png"
-                         (change)="onFileChange($event, 'photo')" />
+                  <input
+                    class="form-control"
+                    type="file"
+                    accept="image/jpeg,image/png"
+                    (change)="onFileChange($event, 'photo')"
+                  />
 
-                  <div class="invalid-feedback d-block"
-                       *ngIf="documents.controls.photo.invalid && (documents.controls.photo.touched || documents.controls.photo.dirty)">
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      documents.controls.photo.invalid &&
+                      (documents.controls.photo.touched || documents.controls.photo.dirty)
+                    "
+                  >
                     <ng-container *ngIf="documents.controls.photo.hasError('required')">
                       Photo is required.
                     </ng-container>
@@ -441,9 +525,12 @@
                     <label class="form-label fw-semibold">
                       Birth Certificate <span class="text-danger">*</span>
                     </label>
-                    <input class="form-control" type="file"
-                           accept="application/pdf,image/jpeg,image/png"
-                           (change)="onFileChange($event, 'birthCertificate')" />
+                    <input
+                      class="form-control"
+                      type="file"
+                      accept="application/pdf,image/jpeg,image/png"
+                      (change)="onFileChange($event, 'birthCertificate')"
+                    />
                   </div>
                 </ng-container>
 
@@ -453,18 +540,24 @@
                     <label class="form-label fw-semibold">
                       Passport Copy <span class="text-danger">*</span>
                     </label>
-                    <input class="form-control" type="file"
-                           accept="application/pdf,image/jpeg,image/png"
-                           (change)="onFileChange($event, 'passportCopy')" />
+                    <input
+                      class="form-control"
+                      type="file"
+                      accept="application/pdf,image/jpeg,image/png"
+                      (change)="onFileChange($event, 'passportCopy')"
+                    />
                   </div>
 
                   <div class="col-12">
                     <label class="form-label fw-semibold">
                       Address Proof <span class="text-danger">*</span>
                     </label>
-                    <input class="form-control" type="file"
-                           accept="application/pdf"
-                           (change)="onFileChange($event, 'addressProof')" />
+                    <input
+                      class="form-control"
+                      type="file"
+                      accept="application/pdf"
+                      (change)="onFileChange($event, 'addressProof')"
+                    />
                   </div>
                 </ng-container>
 
@@ -474,21 +567,26 @@
                     <label class="form-label fw-semibold">
                       Passport Copy <span class="text-danger">*</span>
                     </label>
-                    <input class="form-control" type="file"
-                           accept="application/pdf,image/jpeg,image/png"
-                           (change)="onFileChange($event, 'passportCopy')" />
+                    <input
+                      class="form-control"
+                      type="file"
+                      accept="application/pdf,image/jpeg,image/png"
+                      (change)="onFileChange($event, 'passportCopy')"
+                    />
                   </div>
 
                   <div class="col-12">
                     <label class="form-label fw-semibold">
                       Permit/Residence Proof <span class="text-danger">*</span>
                     </label>
-                    <input class="form-control" type="file"
-                           accept="application/pdf,image/jpeg,image/png"
-                           (change)="onFileChange($event, 'permitProof')" />
+                    <input
+                      class="form-control"
+                      type="file"
+                      accept="application/pdf,image/jpeg,image/png"
+                      (change)="onFileChange($event, 'permitProof')"
+                    />
                   </div>
                 </ng-container>
-
               </div>
 
               <div class="d-flex justify-content-between mt-3">
@@ -515,9 +613,7 @@
                 </button>
               </div>
             </mat-step>
-
           </mat-horizontal-stepper>
-
         </div>
       </section>
     </div>
