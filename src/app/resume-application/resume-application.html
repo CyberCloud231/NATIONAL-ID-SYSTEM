@@ -1,0 +1,91 @@
+<section class="resume-bg" aria-labelledby="resume-title">
+  <div class="resume-container">
+    <mat-card class="resume-card" role="form">
+      <!-- HEADER -->
+      <header class="card-header">
+        <mat-card-title id="resume-title" class="title">
+          Resume Your Application
+        </mat-card-title>
+        <mat-card-subtitle class="subtitle">
+          Enter your Temporary Application ID and complete verification to continue.
+        </mat-card-subtitle>
+      </header>
+
+      <!-- BODY -->
+      <mat-card-content class="card-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="resume-form" novalidate>
+
+          <!-- TEMP ID -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Temporary Application ID</mat-label>
+            <input
+              matInput
+              formControlName="tempAppId"
+              autocomplete="off"
+              inputmode="latin"
+              aria-describedby="tempIdHint"
+            />
+            <mat-hint id="tempIdHint">8–16 characters (letters and digits)</mat-hint>
+            <mat-error *ngIf="form.get('tempAppId')?.hasError('required')">Required</mat-error>
+            <mat-error *ngIf="form.get('tempAppId')?.hasError('pattern')">
+              Letters &amp; digits only
+            </mat-error>
+          </mat-form-field>
+
+          <!-- CAPTCHA -->
+          <div class="captcha-row">
+            <app-captcha (changed)="onCaptchaChanged($event)" aria-label="CAPTCHA image"></app-captcha>
+
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Enter CAPTCHA</mat-label>
+              <input
+                matInput
+                formControlName="captchaAnswer"
+                autocomplete="off"
+                inputmode="latin"
+                (keyup.enter)="onSubmit()"
+                aria-describedby="captchaHint"
+              />
+              <mat-hint id="captchaHint">Captcha is case-insensitive.</mat-hint>
+              <mat-error *ngIf="form.get('captchaAnswer')?.hasError('required')">
+                Required
+              </mat-error>
+              <mat-error *ngIf="form.get('captchaAnswer')?.hasError('minlength')">
+                Too short
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- ACTION -->
+          <div class="actions">
+            <button
+              mat-raised-button
+              type="submit"
+              class="btn-primary"
+              [disabled]="form.invalid || loading"
+              aria-label="Continue to application form"
+            >
+              <mat-icon *ngIf="!loading">arrow_forward</mat-icon>
+              <mat-progress-spinner
+                *ngIf="loading"
+                mode="indeterminate"
+                diameter="20"
+                [strokeWidth]="3"
+                aria-label="Loading"
+              ></mat-progress-spinner>
+              <span class="btn-text">Continue</span>
+            </button>
+          </div>
+
+          <!-- ERROR -->
+          @if (error) {
+            <div class="error" role="alert">
+              {{ error }}
+            </div>
+          }
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+

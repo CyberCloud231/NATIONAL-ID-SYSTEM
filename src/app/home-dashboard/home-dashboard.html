@@ -1,15 +1,15 @@
-
 <!-- Top Bar -->
 <div class="top-bar">
   <div class="user-menu">
     <button class="user-btn" (click)="toggleMenu()">
+      <i class="bi bi-person-circle" aria-hidden="true"></i>
       {{ user.name }}
       <span class="arrow">▾</span>
     </button>
 
     <div class="dropdown" *ngIf="menuOpen">
-      <button (click)="goToProfile()">Profile</button>
-      <button class="logout" (click)="logout()">Logout</button>
+      <button (click)="goToProfile()"><i class="bi bi-person"></i> Profile</button>
+      <button class="logout" (click)="logout()"><i class="bi bi-box-arrow-right"></i> Logout</button>
     </div>
   </div>
 </div>
@@ -19,28 +19,58 @@
 
   <!-- Dashboard -->
   <section class="dashboard">
-    <h1>Welcome Back, {{ user.name }}!</h1>
+    <h1><i class="bi bi-speedometer2" aria-hidden="true"></i> Welcome Back, {{ user.name }}!</h1>
     <p class="tagline">One Nation, One Identity Seamlessly Connected</p>
 
     <div class="info">
-      <span>Last Login : {{ user.lastLogin | date:'medium' }}</span>
-      <span>NIRAL ID : {{ user.id }}</span>
+      <span><i class="bi bi-clock-history"></i> Last Login : {{ user.lastLogin | date:'medium' }}</span>
+      <span><i class="bi bi-fingerprint"></i> NIRAL ID : {{ user.id }}</span>
     </div>
   </section>
 
   <!-- Categories -->
   <section class="categories">
-    <div class="card">Edit Profile</div>
-    <div class="card" routerLink='/applyForm'>Fresh Application</div>
-    <div class="card" routerLink="">Edit / Complete Application</div>
-    <div class="card">Print Application Form</div>
-    <div class="card">Application Status</div>
-    <div class="card">Appointment Scheduling</div>
-    <div class="card">Reapply for Missing Card</div>
-    <div class="card">Change of Information</div>
-    <div class="card">Apply for Card Renewal</div>
-    <div class="card">Download e-Card</div>
-    <div class="card">Feedback</div>
+    <mat-card class="dash-card"><i class="bi bi-pencil-square"></i> <span class="label">Edit Profile</span></mat-card>
+
+    <mat-card class="dash-card" routerLink="/app/apply-form">
+      <i class="bi bi-file-earmark-plus"></i> <span class="label">Fresh Application</span>
+    </mat-card>
+
+    <mat-card class="dash-card" routerLink="/app/resume-application">
+      <i class="bi bi-journal-check"></i> <span class="label">Edit / Complete Application</span>
+    </mat-card>
+
+    <mat-card class="dash-card">
+      <i class="bi bi-printer"></i> <span class="label">Print Application Form</span>
+    </mat-card>
+
+    <mat-card class="dash-card">
+      <i class="bi bi-clipboard2-data"></i> <span class="label">Application Status</span>
+    </mat-card>
+
+    <mat-card class="dash-card">
+      <i class="bi bi-calendar-check"></i> <span class="label">Appointment Scheduling</span>
+    </mat-card>
+
+    <mat-card class="dash-card">
+      <i class="bi bi-credit-card-2-front"></i> <span class="label">Reapply for Missing Card</span>
+    </mat-card>
+
+    <mat-card class="dash-card">
+      <i class="bi bi-arrow-repeat"></i> <span class="label">Change of Information</span>
+    </mat-card>
+
+    <mat-card class="dash-card">
+      <i class="bi bi-arrow-clockwise"></i> <span class="label">Apply for Card Renewal</span>
+    </mat-card>
+
+    <mat-card class="dash-card">
+      <i class="bi bi-download"></i> <span class="label">Download e-Card</span>
+    </mat-card>
+
+    <mat-card class="dash-card">
+      <i class="bi bi-chat-dots"></i> <span class="label">Feedback</span>
+    </mat-card>
   </section>
 
 </div>

@@ -1,4 +1,24 @@
-/* RESET */
+
+:root {
+  --clr-red: #c6282899;
+  --clr-sky: #084778;
+  --clr-navy: #0b23478b;
+
+  --gradient-main: linear-gradient(
+    135deg,
+    var(--clr-red),
+    var(--clr-sky) 45%,
+    var(--clr-navy)
+  );
+
+  --gradient-soft: linear-gradient(
+    110deg,
+    var(--clr-red),
+    var(--clr-sky) 45%,
+    var(--clr-navy)
+  );
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,34 +26,61 @@
 }
 
 body {
-  overflow-x: hidden;
   font-family: 'Poppins', Arial, sans-serif;
+  overflow-x: hidden;
 }
 
-/* TOP BAR */
+
+:host {
+  display: block;
+  min-height: 74vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Overlay */
+:host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(2, 58, 141, 0.596),
+    rgba(207, 50, 50, 0.6)
+  );
+
+  z-index: 0;
+}
+
+/* Make content above overlay */
+.page-wrapper,
+.top-bar {
+  position: relative;
+  z-index: 2;
+}
+
+/* =====================================================
+   4️⃣ TOP BAR
+===================================================== */
+
 .top-bar {
   width: 100%;
-  padding: 12px 20px;
+  padding: 14px 24px;
   display: flex;
   justify-content: flex-end;
 }
 
-.user-menu {
-  position: relative;
-}
+.user-menu { position: relative; }
 
 .user-btn {
-  background: #d32f2f;
+  background: var(--clr-red);
   color: #fff;
   border: none;
   padding: 10px 14px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-}
-
-.arrow {
-  margin-left: 6px;
 }
 
 .dropdown {
@@ -62,97 +109,163 @@ body {
 }
 
 .dropdown .logout {
-  color: #d32f2f;
+  color: var(--clr-red);
 }
 
-/* PAGE WRAPPER */
+/* =====================================================
+   5️⃣ PAGE WRAPPER
+===================================================== */
+
 .page-wrapper {
   width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  gap: 40px;
+  gap: 32px;
 }
 
-/* SHARED WIDTH */
-.dashboard,
-.categories {
-  width: 100%;
-  max-width: 1200px;
-}
+/* =====================================================
+   6️⃣ DASHBOARD SECTION (GRADIENT CARD STYLE)
+===================================================== */
 
-/* DASHBOARD */
 .dashboard {
-  background: linear-gradient(135deg, #d32f2f, #b71c1c);
-  color: white;
-  border-radius: 18px;
-  padding: 30px;
+  position: relative;
+  padding: 40px 30px;
+  border-radius: 20px;
   text-align: center;
+  color: #fff;
+
+  background: var(--gradient-main);
+
+  box-shadow: 0 20px 50px rgba(11, 35, 71, 0.788);
+}
+
+/* Gradient Border */
+.dashboard::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 23px;
+  background: var(--gradient-soft);
+  z-index: -1;
+}
+
+/* Glow */
+.dashboard::after {
+  content: "";
+  position: absolute;
+  inset: -15px;
+  border-radius: 26px;
+  background: var(--gradient-soft);
+  filter: blur(22px) opacity(0.25);
+  z-index: -2;
 }
 
 .dashboard h1 {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   margin-bottom: 10px;
 }
 
 .tagline {
-  opacity: 0.9;
-  margin-bottom: 20px;
+  opacity: 0.95;
+  margin-bottom: 18px;
 }
 
 .info {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 24px;
   flex-wrap: wrap;
   font-size: 0.95rem;
 }
 
-/* CATEGORIES GRID */
+/* =====================================================
+   7️⃣ CATEGORIES GRID
+===================================================== */
+
 .categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
 }
 
-/* CARD */
-.card {
-  background: #fff;
-  padding: 22px;
-  border-radius: 14px;
-  text-align: center;
-  font-weight: 600;
-  color: #b71c1c;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+/* =====================================================
+   8️⃣ ANGULAR MATERIAL DASH CARDS
+===================================================== */
+
+mat-card.dash-card {
+  min-height: 70px;
+  padding: 8px;
+  border-radius: 14px ;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 500;
+  color: var(--clr-navy);
+  background: rgba(9, 9, 136, 0.722);
+
+  box-shadow: 0 6px 14px rgba(143, 9, 9, 0.604);
+
+  position: relative;
+  isolation: isolate;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: rgb(114, 160, 238);
+
+  transition: all 0.2s ease;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+/* Gradient Glow Shadow */
+mat-card.dash-card::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 18px;
+  background: var(--gradient-soft);
+  filter: blur(14px) opacity(0.18);
+  z-index: -1;
+  transition: 0.2s ease;
 }
 
-/* TABLET */
-@media (max-width: 992px) {
-  .dashboard h1 {
-    font-size: 1.6rem;
-  }
+mat-card.dash-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 
-/* MOBILE */
-@media (max-width: 576px) {
+mat-card.dash-card:hover::after {
+  filter: blur(18px) opacity(0.28);
+}
+
+mat-card.dash-card i {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+  color: redgb(11, 35, 71);
+}
+
+/* =====================================================
+   9️⃣ RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
   .dashboard {
-    padding: 20px;
+    padding: 24px;
   }
 
   .dashboard h1 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 
   .info {
     flex-direction: column;
     gap: 10px;
+  }
+
+  mat-card.dash-card {
+    min-height: 75px;
+    padding: 8px;
   }
 }

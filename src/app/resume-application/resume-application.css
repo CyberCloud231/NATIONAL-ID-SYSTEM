@@ -1,0 +1,170 @@
+:host {
+
+  --clr-red: #c62828;
+  --clr-skyblue: #58b6ff;
+  --clr-navy: #0b2347;
+
+  --overlay-dark: rgba(11, 35, 71, 0.88);
+  --overlay-light: rgba(11, 35, 71, 0.65);
+
+  --gradient-main: linear-gradient(135deg, var(--clr-red), var(--clr-skyblue) 45%, var(--clr-navy));
+}
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.resume-bg {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: clamp(12px, 3vw, 32px);
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: url('https://www.unicef.org/liberia/sites/unicef.org.liberia/files/styles/press_release_feature/public/H6%20Meeting%20President.webp')
+    center / cover no-repeat;
+}
+
+
+
+.resume-container {
+  width: 100%;
+  max-width: 560px;
+}
+
+
+.resume-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--overlay-dark), var(--overlay-light));
+  z-index: 0;
+}
+
+
+.resume-container {
+  width: 100%;
+  max-width: 560px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+.resume-card {
+  position: relative;
+  width: 100%;
+  padding: clamp(16px, 2vw, 24px);
+
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(11, 35, 71, 0.25);
+
+  overflow: hidden;
+}
+s
+
+
+.resume-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: var(--gradient-main);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+
+.title {
+  margin: 0 0 8px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--clr-navy);
+  letter-spacing: 0.3px;
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #5f6b7a;
+  line-height: 1.45;
+}
+
+
+.w-100 { width: 100%; }
+mat-form-field { width: 100%; margin-bottom: 14px; }
+
+
+.captcha-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+}
+
+
+.actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+button[mat-raised-button] {
+  border-radius: 28px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--gradient-main);
+  box-shadow: 0 10px 24px rgba(11, 35, 71, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button[mat-raised-button]:hover {
+  transform: translateY(-2px);
+}
+
+
+.error {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--clr-red);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+
+@media (max-width: 600px) {
+  .resume-card { border-radius: 16px; padding: 18px; }
+  .title { font-size: 1.35rem; }
+  .subtitle { font-size: 0.85rem; margin-bottom: 16px; }
+  .captcha-row { grid-template-columns: 1fr; }
+}
+mat-form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.title {
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  margin-bottom: 14px;
+}

@@ -184,3 +184,21 @@ app-root {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Prevent page scrolling anywhere */
+html, body {
+  height: 100%;
+
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;   /* App never scrolls */
+}
+
+app-root {
+  display: block;
+  height: 100%;
+}

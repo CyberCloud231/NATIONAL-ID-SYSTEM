@@ -16,12 +16,15 @@ import { PaymentProcess } from './payment-process/payment-process';
 import { Feedback } from './feedback/feedback';
 import { Anouncements } from './anouncements/anouncements';
 import { ApplicationForm } from './application-form/application-form';
+import { ResumeApplication } from './resume-application/resume-application';
 
 export const routes: Routes = [
+
   {
     path: '',
     component: PublicLayout,
     children: [
+      { path: '', redirectTo: 'about', pathMatch: 'full' },
       { path: 'about', component: About },
       { path: 'how-to-apply', component: HowToApply },
       { path: 'faq', component: FAQs },
@@ -33,18 +36,22 @@ export const routes: Routes = [
       { path: 'payment-process', component: PaymentProcess },
       { path: 'feedback', component: Feedback },
       { path: 'announcements', component: Anouncements },
-    ],
+    ]
   },
 
   { path: 'login', component: AuthLogin },
   { path: 'signup', component: AuthSignup },
 
   {
-    path: '',
+    path: 'app',
     component: SystemLayout,
     children: [
-      { path: 'dashboard',component: HomeDashboard,data: { showHeader: true },},
-      { path: 'applyForm',component: ApplicationForm,data: { showHeader: true },},
+      { path: 'dashboard', component: HomeDashboard, data: { showHeader: true } },
+      { path: 'resume-application', component: ResumeApplication, data: { showHeader: true } },
+      { path: 'apply-form', component: ApplicationForm, data: { showHeader: true } },
     ],
   },
+
+  { path: '**', redirectTo: '' },
 ];
+
